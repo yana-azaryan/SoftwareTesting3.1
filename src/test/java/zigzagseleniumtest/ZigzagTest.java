@@ -10,7 +10,7 @@ public class ZigzagTest {
     public static String url = "https://www.zigzag.am/";
 
     @BeforeTest
-    public void init() {
+    public static void init() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
@@ -79,5 +79,10 @@ public class ZigzagTest {
         driver.findElement(By.id("send2")).click();
 
         softAssert.assertTrue(driver.findElement(By.tagName("h1")).getText().contains("Իմ հաշիվը"));
+    }
+
+    @AfterTest
+    public static void quit() {
+        driver.quit();
     }
 }
