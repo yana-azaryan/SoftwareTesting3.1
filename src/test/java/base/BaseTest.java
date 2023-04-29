@@ -6,12 +6,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import constants.urls.ZigzagTestingUrls;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,9 +38,20 @@ public class BaseTest {
         return options;
     }
     
+    // goHome function for Homework3.2
+    // public void goHome() {
+    //     driver = new ChromeDriver(getChromeOptions());
+    //
+    //     driver.manage().window().maximize();
+    //     driver.get(ZigzagTestingUrls.pageUrl);
+    // }
+
+    // goHome function for Homework3.3
     @BeforeMethod
-    public void goHome() {
-        driver = new ChromeDriver(getChromeOptions());
+    public void goHome() throws MalformedURLException {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName(BrowserType.CHROME);
+        driver = new RemoteWebDriver(new URL("https://localhost:4444/wd/hub"), capabilities);
 
         driver.manage().window().maximize();
         driver.get(ZigzagTestingUrls.pageUrl);
